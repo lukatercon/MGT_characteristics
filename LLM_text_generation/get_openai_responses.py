@@ -49,8 +49,8 @@ def build_titles_dict(titles_file):
     return titles_dict
 
 # define the client and the model to be used
-#client = OpenAI()
-model_to_use = "gpt5-chat-latest"     # this is the model used by default in the ChatGPT browser interface
+client = OpenAI()
+model_to_use = "gpt-5-2025-08-07"     # this is the model used by default in the ChatGPT browser interface at time of generation "gpt-5-2025-08-07"
 
 # define the files that contain lengths and titles
 lengths_file = os.path.join("..", "Datasets", "Solar", "Solar_lengths.tsv")
@@ -67,13 +67,11 @@ titles_dict = build_titles_dict(titles_file)
 # go through every document in human-written and generate a corresponding machine generated essay, 
 # but only if at least the title or the referenced literary work of the essay is known
 i = 1
-for doc_id in titles_dict.keys():
+for doc_id in list(titles_dict.keys())[:6]:
     title_info = titles_dict[doc_id]
 
-    if title_info[0] or title_info[2]: 
-        print(doc_id)
+    if title_info[0] or title_info[2]:
 
-        """
         prompt = combine_with_Šolar_template(title_info, len_dict[doc_id])
 
         completion = client.chat.completions.create(
@@ -81,7 +79,7 @@ for doc_id in titles_dict.keys():
             temperature=1,
             top_p=1,
             messages=[
-                {"role": "system", "content": "You are a helpful assistant."},  # use a default system prompt in English
+                {"role": "system", "content": "You are a helpful assistant."},  # use a default system prompt in English, since this reflects the default usage of most users
                 {
                     "role": "user",
                     "content": prompt
@@ -95,5 +93,4 @@ for doc_id in titles_dict.keys():
         if i % 100 == 0:
             print(f"Document {i}/{len(titles_dict.keys())}")
 
-        i += 1"""
-
+        i += 1
