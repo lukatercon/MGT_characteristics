@@ -67,7 +67,7 @@ titles_dict = build_titles_dict(titles_file)
 # go through every document in human-written and generate a corresponding machine generated essay, 
 # but only if at least the title or the referenced literary work of the essay is known
 i = 1
-for doc_id in list(titles_dict.keys())[:6]:
+for doc_id in titles_dict.keys():
     title_info = titles_dict[doc_id]
 
     if title_info[0] or title_info[2]:
