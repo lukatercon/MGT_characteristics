@@ -33,19 +33,13 @@ if __name__ == "__main__":
         device_map="cuda"
     )
 
-    i = 1
     for doc_id in tqdm(iter(relevant_docs), total=len(relevant_docs), desc="Progress through docs"):
         title_info = titles_dict[doc_id]
 
         prompt = combine_with_Šolar_template(title_info, len_dict[doc_id])
 
         message = [{"role": "user", "content": prompt}]
-        response = pline(message, max_new_tokens=1024)
+        response = pline(message, max_new_tokens=2048)
 
         with open(os.path.join(output_dir, f"{doc_id}.txt"), "w", encoding="utf-8") as wf:
             wf.write(response[0]["generated_text"][-1]["content"])
-
-        if i % 100 == 0:
-            print(f"Document {i}/{len(relevant_docs)}") 
-
-        i += 1 
