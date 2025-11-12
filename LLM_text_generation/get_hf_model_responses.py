@@ -1,6 +1,7 @@
 import os
 import sys
 from transformers import pipeline
+from tqdm import tqdm
 
 from utils import combine_with_Šolar_template, build_lengths_dict, build_titles_dict
 
@@ -33,7 +34,7 @@ if __name__ == "__main__":
     )
 
     i = 1
-    for doc_id in relevant_docs:
+    for doc_id in tqdm(iter(relevant_docs), total=len(relevant_docs), desc="Progress through docs"):
         title_info = titles_dict[doc_id]
 
         prompt = combine_with_Šolar_template(title_info, len_dict[doc_id])
