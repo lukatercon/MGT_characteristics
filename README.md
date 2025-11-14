@@ -20,6 +20,11 @@ The IDs of all the relevant Šolar texts are stored in Solar_relevant_doc_ids.tx
 
 Models used:
 - GPT-5 - the default ChatGPT model, currently still a very widely used AI text generation platform
+- GaMS-27B-Instruct - LLM specifically aimed at generating Slovenian texts developed as part of the PoVeJMo project - 27 billion parameter version: [https://huggingface.co/cjvt/GaMS-27B-Instruct](https://huggingface.co/cjvt/GaMS-27B-Instruct)
+- gemma-2-27b-it - the LLM that the GaMS-27B model was based on: [https://huggingface.co/google/gemma-2-27b-it](https://huggingface.co/google/gemma-2-27b-it)
+*- GaMS-1B-Chat - LLM specifically aimed at generating Slovenian texts developed as part of the PoVeJMo project - 1 billion parameter version: [https://huggingface.co/cjvt/GaMS-1B-Chat](https://huggingface.co/cjvt/GaMS-1B-Chat)*
+*- GaMS-27B-Instruct-Nemotron - LLM specifically aimed at generating Slovenian texts developed as part of the PoVeJMo project - 27 billion parameter version finetuned on the Nemotron machine-translated instruction tuning dataset: [https://huggingface.co/GaMS-Beta/GaMS-27B-Instruct-Nemotron](https://huggingface.co/GaMS-Beta/GaMS-27B-Instruct-Nemotron)*
+
 
 ## Data Preprocessing
 
