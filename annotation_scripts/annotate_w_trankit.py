@@ -2,12 +2,13 @@ from trankit import Pipeline, trankit2conllu
 from tqdm import tqdm
 
 import os
+import sys
 
 
-#model_path = os.path.join("..", "Models", "save_dir_ssj+sst")
-model_path = r"C:\Users\Tercon\Desktop\save_dir_ssj+sst"
-raw_files_path = os.path.join("..", "Datasets", "Solar", "Solar_GaMS-1b", "raw_trailingspace_removed")
-output_path = os.path.join("..", "Datasets", "Solar", "Solar_GaMS-1b", "annotated", "Solar_GaMS-1b_annotated.conllu")
+model_path = os.path.join("..", "Models", "save_dir_ssj+sst")
+
+# parse positional arguments. Usage: python annotate_w_trankit.py raw_files_directory output_directory
+raw_files_path, output_path = sys.argv[1], sys.argv[2]
 
 relevant_ids_file = os.path.join("..", "Solar_relevant_doc_ids.txt")
 
