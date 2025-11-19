@@ -1,7 +1,7 @@
 import os
 from openai import OpenAI
 
-from utils import combine_with_Šolar_template, build_lengths_dict, build_titles_dict
+from utils import combine_with_Šolar_default_template, build_lengths_dict, build_titles_dict
 
 if __name__ == "__main__":
     # define the client and the model to be used
@@ -30,7 +30,7 @@ if __name__ == "__main__":
 
         if title_info[0] or title_info[2]:
 
-            prompt = combine_with_Šolar_template(title_info, len_dict[doc_id])
+            prompt = combine_with_Šolar_default_template(title_info, len_dict[doc_id])
 
             completion = client.chat.completions.create(
                 model=model_to_use,
