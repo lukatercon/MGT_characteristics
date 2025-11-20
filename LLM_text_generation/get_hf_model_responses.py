@@ -33,7 +33,7 @@ if __name__ == "__main__":
     pline = pipeline(
         "text-generation",
         model=model_id,
-        device_map="cuda"
+        device_map="auto"
     )
 
     for doc_id in tqdm(iter(relevant_docs), total=len(relevant_docs), desc="Progress through docs"):
