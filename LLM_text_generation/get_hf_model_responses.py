@@ -7,7 +7,7 @@ from utils import combine_with_Šolar_default_template, combine_with_Šolar_pers
 
 if __name__ == "__main__":
     # get arguments (usage: "python get_hf_model_responses.py model_name output_dir prompt_type")
-    # prompt type can be: ["default", "persona_aware"]
+    # prompt type can be: ["default", "persona_aware", "longer_responses"]
     model_name, output_dir, prompt_type = sys.argv[1], sys.argv[2], sys.argv[3]
 
     # define the files that contain lengths and titles
@@ -43,8 +43,10 @@ if __name__ == "__main__":
 
         if prompt_type == "default":
             prompt = combine_with_Šolar_default_template(title_info, len_dict[doc_id])
-        elif  prompt_type == "persona_aware":
+        elif prompt_type == "persona_aware":
             prompt = combine_with_Šolar_persona_aware_template(title_info, len_dict[doc_id], spk_region, schl_subj)
+        elif prompt_type == "longer_responses":
+            prompt = combine_with_Šolar_default_template(title_info, str(len_dict[doc_id])*2)
 
         message = [{"role": "user", "content": prompt}]
         response = pline(message, max_new_tokens=2048)

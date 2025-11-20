@@ -17,3 +17,10 @@ Napiši esej z naslovom {essay_title} in podnaslovom {essay_subtitle}, ki se nan
 ```
 
 This prompt additionally incorporates information about the school grade, school type, region of Slovenia that the student is from and the school subject. It therefore constructs a type of persona for the LLM to assume when generating the text.
+
+### Alternative Prompt for Longer Responses
+
+```
+Napiši esej z naslovom {essay_title} in podnaslovom {essay_subtitle}, ki se nanaša na literarno delo {referenced_literary_work}, s približno {length_of_corresponding_HWT*2} besedami. Odgovori samo z esejem brez spremnega besedila.
+```
+Due to GaMS-27B producing unexpectedly short responses (e.g. generating an essay with 50 words, when prompted to produce an essay with 700 words), the above prompt was also used to see if GaMS would produce longer responses.
