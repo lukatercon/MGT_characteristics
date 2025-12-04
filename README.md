@@ -7,7 +7,7 @@ Several models were used with prompts that were designed using metadata from var
 
 ### Šolar
 
-Prompts used: see LLM_text_generation/text_generation_prompts.txt. This includes the default prompts, as well as the alternative persona-aware prompt.
+Prompts used: see LLM_text_generation/text_generation_prompts.txt. This includes the default prompts, as well as the alternative persona-aware and metalinguistically-aware prompts. 
 
 Process summary: 
 We employed a human annotator to find existing explicitly mentioned titles within the Šolar corpus and used those to build prompts for generating MGT using LLMs (see below for a list). The default prompt template is stored in LLM_text_generation/text_generation_prompts.md. We generated a corresponding MG essay and ran the analysis only on those texts from Šolar that:
@@ -16,7 +16,11 @@ We employed a human annotator to find existing explicitly mentioned titles withi
 2. are written by 4th year gimnazija students (this is done to single out a subset of Šolar that most corresponds to British A-level student proficiency, as this is what we take as the relevant subset of essays in the LOCNESS corpus)
 3. have an explicitly mentioned essay title or explicitly refer to some literary work as the basis for the content. This ensures that the content of the MG essays stays as close to the HW essays as possible, since this information is featured in the prompt.
 
-The IDs of all the relevant Šolar texts are stored in Solar_relevant_doc_ids.txt. After generating the texts using the default prompt, the alternative persona-aware prompt was also used to generate an additional set of texts using the GaMS-27B model. This was done to assess the degree to which prompt wording affects the generated texts.
+The IDs of all the relevant Šolar texts are stored in Solar_relevant_doc_ids.txt. 
+
+With GaMS-27B, we additionally excluded texts shorter than 100 words in order to ensure that none of the cases in which the model refused to provide a response made it into the comparison process. We also found that in one specific case "solar28", the model returned only the title repeated over and over in a long loop. Consequently we excluded this case from the comparison as well. The corresponding human-written essays were also excluded from the human-written text corpus during the analysis phase in order to ensure a fair comparison.
+
+After generating the texts using the default prompt, the alternative persona-aware prompt was also used to generate an additional set of texts using the GaMS-27B model. This was done to assess the degree to which prompt wording affects the generated texts. Texts were generated also using the additional metalinguistically aware prompt.
 
 Models used:
 - GPT-5 - the default ChatGPT model, currently still a very widely used AI text generation platform

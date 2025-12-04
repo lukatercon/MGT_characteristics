@@ -21,7 +21,7 @@ def combine_with_Šolar_default_template(title_info, length):
     return template
 
 
-def combine_with_Šolar_persona_aware_template(title_info, length, region, subject):
+def combine_with_Šolar_persona_aware_template(title_info, length, region, subject, age=0, mode="default"):
     title_string = ""
     subtitle_string = ""
     ref_lit_work_string = ""
@@ -39,7 +39,41 @@ def combine_with_Šolar_persona_aware_template(title_info, length, region, subje
         else:
             subtitle_string = f" s podnaslovom {title_info[1]}"
 
-    template = f"Napiši esej{title_string}{subtitle_string}{ref_lit_work_string} s približno {str(length)} besedami. Esej napiši, kot bi ga napisal dijak 4. letnika gimnazije iz kraja: {region} pri predmetu: {subject}. Odgovori samo z esejem brez spremnega besedila."
+    if mode == "default":
+        template = f"Napiši esej{title_string}{subtitle_string}{ref_lit_work_string} s približno {str(length)} besedami. Esej napiši, kot bi ga napisal dijak 4. letnika gimnazije iz kraja: {region} pri predmetu: {subject}. Odgovori samo z esejem brez spremnega besedila."
+    elif mode == "age":
+        template = f"Napiši esej{title_string}{subtitle_string}{ref_lit_work_string} s približno {str(length)} besedami. Esej napiši, kot bi ga napisal {str(age)} let star pisec. Odgovori samo z esejem brez spremnega besedila."
+    else:
+        raise Exception(f"Invalid prompt mode: {mode}")
+
+    return template
+
+
+def combine_with_Šolar_linguistically_aware_template(title_info, length, region, subject, mode="general"):
+    # mode can be "general" or "specific"
+    title_string = ""
+    subtitle_string = ""
+    ref_lit_work_string = ""
+    
+    # account for cases in which some of the information about the title is missing
+    if title_info[0]:
+        title_string = f" z naslovom {title_info[0]}"
+    
+    if title_info[2]:
+        ref_lit_work_string = f", ki se nanaša na literarno delo {title_info[2]},"
+    
+    if title_info[1]:
+        if title_info[0]:
+            subtitle_string = f" in podnaslovom {title_info[1]}"
+        else:
+            subtitle_string = f" s podnaslovom {title_info[1]}"
+
+    if mode == "general":
+        template = f"Napiši esej{title_string}{subtitle_string}{ref_lit_work_string} s približno {str(length)} besedami. Esej napiši, kot bi ga napisal dijak 4. letnika gimnazije iz kraja: {region} pri predmetu: {subject}. Bodi pozoren, da bo jezik v eseju čim bolj podoben jeziku, ki bi ga sproduciral omenjeni dijak, pri čemer posebej pazi na primerno dolžino eseja, dolžino povedi, leksikalno raznolikost, raznolikost n-gramov, raznolikost skladenjskih dreves, skladenjsko kompleksnost (povprečno dolžino skladenjskih relacij) in porazdelitev besednovrstnih oznak in tipov skladenjskih relacij. Odgovori samo z esejem brez spremnega besedila."
+    elif mode == "specific":
+        template = f"Napiši esej{title_string}{subtitle_string}{ref_lit_work_string} s približno {str(length)} besedami. Esej napiši, kot bi ga napisal dijak 4. letnika gimnazije iz kraja: {region} pri predmetu: {subject}. Bodi pozoren, da bo jezik v eseju čim bolj podoben jeziku, ki bi ga sproduciral omenjeni dijak, pri čemer posebej pazi, da bodo dolžine esejev daljše kot običajno, dolžine povedi krajše, leksikalna raznolikost višja, raznolikost n-gramov višja, raznolikost skladenjskih dreves višja in skladenjska kompleksnost (povprečna dolžina skladenjskih relacij) nižja. Med besednovrstnimi oznakami morajo biti bolj pogosti pomožni glagoli, glagoli in zaimki, manj pa mora biti samostalnikov, pridevnikov in predlogov. Med tipi skladenjskih relacij morajo biti bolj pogosti prislovni modifikatorji, pomožni glagoli in predmeti, manj pa mora biti pridevniških modifikatorjev, samostalniških modifikatorjev in prirednih zvez. Odgovori samo z esejem brez spremnega besedila."
+    else:
+        raise Exception(f"Invalid prompt mode: {mode}")
 
     return template
 
