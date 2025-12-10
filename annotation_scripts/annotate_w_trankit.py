@@ -5,7 +5,7 @@ import os
 import sys
 
 
-model_path = os.path.join("..", "Models", "save_dir_ssj+sst")
+model_path = os.path.join("..", "Models", "save_dir_ssj_sst")
 
 # parse positional arguments. Usage: python annotate_w_trankit.py raw_files_directory output_directory
 raw_files_path, output_path = sys.argv[1], sys.argv[2]

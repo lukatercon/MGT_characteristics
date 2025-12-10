@@ -20,7 +20,9 @@ The IDs of all the relevant Šolar texts are stored in Solar_relevant_doc_ids.tx
 
 With GaMS-27B, we additionally excluded texts shorter than 100 words in order to ensure that none of the cases in which the model refused to provide a response made it into the comparison process. We also found that in one specific case "solar28", the model returned only the title repeated over and over in a long loop. Consequently we excluded this case from the comparison as well. The corresponding human-written essays were also excluded from the human-written text corpus during the analysis phase in order to ensure a fair comparison.
 
-After generating the texts using the default prompt, the alternative persona-aware prompt was also used to generate an additional set of texts using the GaMS-27B model. This was done to assess the degree to which prompt wording affects the generated texts. Texts were generated also using the additional metalinguistically aware prompt.
+After generating the texts using the default prompt, the alternative persona-aware prompt was also used to generate an additional set of texts using the GaMS-27B model. This was done to assess the degree to which prompt wording affects the generated texts. Texts were generated also using the additional metalinguistically aware prompt. All alternative prompts were found to produce very similar results to the default prompt. 
+#### ==TODO: Check if these differences are statistically significant or not. We need to know whether we can make any claims at all about the alternative prompts.==
+
 
 Models used:
 - GPT-5 - the default ChatGPT model, currently still a very widely used AI text generation platform
@@ -38,6 +40,9 @@ Grammatical annotation tools used:
 ## Data Analysis
 
 The data analysis phase was carried out using the ComparaTree tool for comparative linguistic analysis of treebanks: [https://github.com/clarinsi/ComparaTree/tree/main](https://github.com/clarinsi/ComparaTree/tree/main).
+
+As several measures included in ComparaTree are based on a special segment-based averaging method, the optimal value for the segment length had to be estableished first. We plotted the rank-frequency distributions for texts produced by GaMS-27B and humans for the following segment lengths: [100, 500, 1000, 5000, 10000, 20000]. It was found that, for the segmental type-token ratio and the tree diversity score, an approximate Zipfian distribution forms around n=1000. This was not found to be the case for the 3-gram diversity score, as we do not get an approximate Zipfian distribution even for n=20000. As a fallback method, we checked whether the tendencies for the 3-gram diversity scores were the same for all the aforementioned values of n (in which dataset the values were higher, etc.).   
+#### ==TODO: Describe also how you checked the rank frequency distributions for different values of n and checked whether the trends hold==
 
 The experiments were carried out in the following order:
 - Šolar vs Šolar_GPT-5: The relevant essays from the Šolar 3.0 corpus were first compared to the corresponding essays from the machine-generated Šolar_GPT-5 corpus (see above for the criteria for selecting relevant essays). The results of this phase are stored in data_analysis/Solar_vs_Solar-GPT-5/. Command used to run ComparaTree:

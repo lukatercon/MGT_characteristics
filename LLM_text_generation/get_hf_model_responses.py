@@ -38,7 +38,7 @@ if __name__ == "__main__":
     pline = pipeline(
         "text-generation",
         model=model_id,
-        device_map="auto"
+        device_map="cuda"
     )
 
     for doc_id in tqdm(iter(relevant_docs), total=len(relevant_docs), desc="Progress through docs"):
@@ -53,7 +53,7 @@ if __name__ == "__main__":
         elif prompt_type == "persona_age_aware":
             prompt = combine_with_Šolar_persona_aware_template(title_info, len_dict[doc_id], "_", "_", age=speaker_age, mode="age")
         elif prompt_type == "longer_responses":
-            prompt = combine_with_Šolar_default_template(title_info, str(len_dict[doc_id])*2)
+            prompt = combine_with_Šolar_default_template(title_info, str(len_dict[doc_id]*2))
         elif prompt_type == "linguistically_aware_general":
             prompt = combine_with_Šolar_linguistically_aware_template(title_info, len_dict[doc_id], spk_region, schl_subj, mode="general")
         elif prompt_type == "linguistically_aware_specific":

@@ -51,22 +51,23 @@ def get_longer_docs(docs, short_docs_list):
     final_docs = list()
 
     # additionally add the docs where repetition occurs here
-    #repetition_doc_id = "solar28" 
-    #short_docs_list.append(repetition_doc_id)
+    repetition_doc_ids = ["solar91"] 
+
+    exclude_docs = short_docs_list + repetition_doc_ids
 
     for doc in docs:
-        if doc[0].metadata["sent_id"].strip().split(".")[0] not in short_docs_list:
+        if doc[0].metadata["sent_id"].strip().split(".")[0] not in exclude_docs:
             final_docs.append(doc)
     
     return final_docs
 
 
 threshold = 100
-mgt_input_path = os.path.join("..", "Datasets", "Solar", "Solar_GaMS-27B_pa_prompt", "annotated", "Solar_GaMS-27B_pa_prompt_annotated.conllu")
+mgt_input_path = os.path.join("..", "Datasets", "Solar", "Solar_GaMS-27B_age_18", "annotated", "Solar_GaMS-27B_age_18_annotated.conllu")
 hwt_input_path = os.path.join("..", "Datasets", "Solar", "Solar_3.0_human", "Solar_3.0_human_relevant.conllu")
 
-mgt_output_path = os.path.join("..", "Datasets", "Solar", "Solar_GaMS-27B_pa_prompt", "annotated", "Solar_GaMS-27B_pa_prompt_annotated_shorter.conllu")
-hwt_output_path = os.path.join("..", "Datasets", "Solar", "Solar_3.0_human", "Solar_3.0_human_relevant_pa_prompt_shorter.conllu")
+mgt_output_path = os.path.join("..", "Datasets", "Solar", "Solar_GaMS-27B_age_18", "annotated", "Solar_GaMS-27B_age_18_annotated_shorter.conllu")
+hwt_output_path = os.path.join("..", "Datasets", "Solar", "Solar_3.0_human", "Solar_3.0_human_relevant_age_18_shorter.conllu")
 
 with open(mgt_input_path, "r", encoding="utf-8") as rf_mgt:
     mgt_sents = conllu.parse(rf_mgt.read())
