@@ -20,12 +20,12 @@ The IDs of all the relevant Šolar texts are stored in Solar_relevant_doc_ids.tx
 
 With GaMS-27B, we additionally excluded texts shorter than 100 words in order to ensure that none of the cases in which the model refused to provide a response made it into the comparison process. We also found that in one specific case "solar28", the model returned only the title repeated over and over in a long loop. Consequently we excluded this case from the comparison as well. The corresponding human-written essays were also excluded from the human-written text corpus during the analysis phase in order to ensure a fair comparison.
 
-After generating the texts using the default prompt, the alternative persona-aware prompt was also used to generate an additional set of texts using the GaMS-27B model. This was done to assess the degree to which prompt wording affects the generated texts. Texts were generated also using the additional metalinguistically aware prompt. All alternative prompts were found to produce very similar results to the default prompt. 
+After generating the texts using the default prompt, the alternative persona-aware prompt and metalinguistically aware prompt was also used to generate an additional set of texts using the GaMS-27B and gemma-2-27B models (and GPT-5, albeit only with the metalinguistically aware alternative prompt). This was done to assess the degree to which prompt wording affects the generated texts. All alternative prompts were found to produce very similar results to the default prompt (???????????). 
 #### ==TODO: Check if these differences are statistically significant or not. We need to know whether we can make any claims at all about the alternative prompts.==
 
 
 Models used:
-- GPT-5 - the default ChatGPT model, currently still a very widely used AI text generation platform
+- GPT-5 - the default ChatGPT model, currently still a very widely used AI text generation platform (specific checkpoint name: gpt-5-2025-08-07)
 - GaMS-27B-Instruct - LLM specifically aimed at generating Slovenian texts developed as part of the PoVeJMo project - 27 billion parameter version: [https://huggingface.co/cjvt/GaMS-27B-Instruct](https://huggingface.co/cjvt/GaMS-27B-Instruct)
 - gemma-2-27b-it - the LLM that the GaMS-27B model was based on: [https://huggingface.co/google/gemma-2-27b-it](https://huggingface.co/google/gemma-2-27b-it)
 *- GaMS-1B-Chat - LLM specifically aimed at generating Slovenian texts developed as part of the PoVeJMo project - 1 billion parameter version: [https://huggingface.co/cjvt/GaMS-1B-Chat](https://huggingface.co/cjvt/GaMS-1B-Chat)*
