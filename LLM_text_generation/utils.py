@@ -21,7 +21,7 @@ def combine_with_Šolar_default_template(title_info, length):
     return template
 
 
-def combine_with_Šolar_persona_aware_template(title_info, length, region, subject, age=0, mode="default"):
+def combine_with_Šolar_persona_aware_template(title_info, length, region, subject, age=0, grade=None, mode="default"):
     title_string = ""
     subtitle_string = ""
     ref_lit_work_string = ""
@@ -43,6 +43,13 @@ def combine_with_Šolar_persona_aware_template(title_info, length, region, subje
         template = f"Napiši esej{title_string}{subtitle_string}{ref_lit_work_string} s približno {str(length)} besedami. Esej napiši, kot bi ga napisal dijak 4. letnika gimnazije iz kraja: {region} pri predmetu: {subject}. Odgovori samo z esejem brez spremnega besedila."
     elif mode == "age":
         template = f"Napiši esej{title_string}{subtitle_string}{ref_lit_work_string} s približno {str(length)} besedami. Esej napiši, kot bi ga napisal {str(age)} let star pisec. Odgovori samo z esejem brez spremnega besedila."
+    elif mode == "grade" and grade:
+        if "letnik" in grade:
+            school = "srednje šole"
+            template = f"Napiši esej{title_string}{subtitle_string}{ref_lit_work_string} s približno {str(length)} besedami. Esej napiši, kot bi ga napisal pisec, ki hodi v {grade} {school}. Odgovori samo z esejem brez spremnega besedila."
+        else:
+            school = "osnovne šole"
+            template = f"Napiši esej{title_string}{subtitle_string}{ref_lit_work_string} s približno {str(length)} besedami. Esej napiši, kot bi ga napisal pisec, ki hodi v {grade} {school}. Odgovori samo z esejem brez spremnega besedila."
     else:
         raise Exception(f"Invalid prompt mode: {mode}")
 

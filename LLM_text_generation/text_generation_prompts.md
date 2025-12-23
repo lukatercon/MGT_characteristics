@@ -26,6 +26,14 @@ Napiši esej z naslovom {essay_title} in podnaslovom {essay_subtitle}, ki se nan
 
 This prompt additionally incorporates information about the age of the writer.
 
+### Persona-Aware Prompt with Writer Grade
+
+```
+Napiši esej z naslovom {essay_title} in podnaslovom {essay_subtitle}, ki se nanaša na literarno delo {referenced_literary_work}, s približno {length_of_corresponding_HWT} besedami. Esej napiši, kot bi ga napisal pisec, ki hodi v {grade} {school}. Odgovori samo z esejem brez spremnega besedila.
+```
+
+This prompt additionally incorporates information about the school grade of the writer.
+
 ### Alternative Prompt for Longer Responses
 
 ```
