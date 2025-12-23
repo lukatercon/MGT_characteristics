@@ -34,7 +34,7 @@ if __name__ == "__main__":
         prompt_type = "persona_age_aware"
     
     if prompt_type.startswith("persona_grade_aware"):
-        grade = prompt_type.split("persona_grade_aware")[1].replace(" ", "_")
+        grade = prompt_type.split("persona_grade_aware")[1].replace("_", " ")
         prompt_type = "persona_grade_aware"
 
     # initialize the pipeline
