@@ -7,10 +7,14 @@ import sys
 
 model_path = os.path.join("..", "Models", "save_dir_ssj_sst")
 
-# parse positional arguments. Usage: python annotate_w_trankit.py raw_files_directory output_directory
-raw_files_path, output_path = sys.argv[1], sys.argv[2]
+# parse positional arguments. Usage: python annotate_w_trankit.py raw_files_directory output_path language
+# language can be either "sl" for Slovenian or "en" for English
+raw_files_path, output_path, lang = sys.argv[1], sys.argv[2], sys.argv[3]
 
-relevant_ids_file = os.path.join("..", "Solar_relevant_doc_ids.txt")
+lang = lang.lower()
+assert lang in ["sl", "en"]
+
+relevant_ids_file = os.path.join("..", "LOCNESS_relevant_doc_ids.txt")
 
 # build list of relevant doc ids
 relevant_ids = list()
@@ -19,7 +23,10 @@ with open(relevant_ids_file, "r", encoding="utf-8") as rf_ids:
         relevant_ids.append(line.strip())
 
 # load the Trankit models
-p = Pipeline(lang="customized", cache_dir=model_path, embedding='xlm-roberta-large', gpu=True)
+if lang == "sl":
+    p = Pipeline(lang="customized", cache_dir=model_path, embedding='xlm-roberta-large', gpu=True)
+elif lang == "en":
+    p = Pipeline(lang="english", gpu=True)
 
 print("Done loading Trankit models!")
 

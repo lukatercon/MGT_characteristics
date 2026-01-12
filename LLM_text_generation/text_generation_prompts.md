@@ -55,3 +55,20 @@ Napiši esej z naslovom {essay_title} in podnaslovom {essay_subtitle}, ki se nan
 ```
 
 In addition to including information about the writer of the essay, this prompt also additionally instructs the model to produce language that is linguistically as close as possible to the profile of the writer. The first option only lists the linguistic characteristics that the model should try to adjust, while the second option also describes how these characteristics should be adjusted, considering the differences that arise from the Solar-human_vs_Solar-GaMS-27B comparison. 
+
+
+## LOCNESS MGT (English)
+
+### Default prompt
+
+```
+Write an essay using approximately {length_of_corresponding_HWT} words addressing the following topic: {topic_of_corresponding_HWT}
+Provide only the essay without any additional accompanying text.
+```
+
+### Metalinguistically aware prompt
+
+```
+Write an essay using approximately {length_of_corresponding_HWT} words addressing the following topic: {topic_of_corresponding_HWT}
+Write the essay as if it were written by a British A-level student. Make sure that the language used matches the profile of the writer, paying special attention to the length of the essay, the length of sentences, lexical diversity, n-gram diversity, diversity of syntactic trees, syntactic complexity (average length of dependency relations), and the distribution of parts-of-speech and syntactic relation types. Provide only the essay without any additional accompanying text.
+```

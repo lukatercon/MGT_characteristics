@@ -85,6 +85,17 @@ def combine_with_Šolar_linguistically_aware_template(title_info, length, region
     return template
 
 
+def combine_with_locness_default_template(topic, length):
+    template = f"Write an essay using approximately {length} words addressing the following topic: {topic}\nProvide only the essay without any additional accompanying text."
+
+    return template
+
+
+def combine_with_locness_linguistically_aware_template(topic, length):
+    template = f"Write an essay using approximately {length} words addressing the following topic: {topic}\nWrite the essay as if it were written by a British A-level student. Make sure that the language used matches the profile of the writer, paying special attention to the length of the essay, the length of sentences, lexical diversity, n-gram diversity, diversity of syntactic trees, syntactic complexity (average length of dependency relations), and the distribution of parts-of-speech and syntactic relation types. Provide only the essay without any additional accompanying text."
+
+    return template
+
 def build_lengths_dict(lengths_file):
     len_dict = dict()
     with open(lengths_file, "r", encoding="utf-8") as rf_len:
@@ -109,13 +120,20 @@ def build_titles_dict(titles_file):
     return titles_dict
 
 
-def build_metadata_dict(meta_file):
+def build_metadata_dict(meta_file, mode):
     meta_dict = dict()
     with open(meta_file, "r", encoding="utf-8") as rf_meta:
         for line in rf_meta.readlines()[1:]:
-            _, solar_id, _, date, school_type, subject, grade, text_type, region = line.strip().split("\t")
+            if mode == "Šolar":
+                _, solar_id, _, date, school_type, subject, grade, text_type, region = line.strip().split("\t")
 
-            solar_id = solar_id[:-1]
-            meta_dict[solar_id] = (date, school_type, subject, grade, text_type, region)
+                solar_id = solar_id[:-1]
+                meta_dict[solar_id] = (date, school_type, subject, grade, text_type, region)
+            
+            elif mode == "LOCNESS":
+                _,	locness_id,	topic_from_text, topic_proposed, essay_length = line.strip().split("\t")
+                final_topic = topic_from_text if topic_from_text != "_" else topic_proposed
+
+                meta_dict[locness_id] = (final_topic, int(essay_length)) 
 
     return meta_dict
