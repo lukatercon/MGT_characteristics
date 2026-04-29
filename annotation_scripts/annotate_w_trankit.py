@@ -14,7 +14,10 @@ raw_files_path, output_path, lang = sys.argv[1], sys.argv[2], sys.argv[3]
 lang = lang.lower()
 assert lang in ["sl", "en"]
 
-relevant_ids_file = os.path.join("..", "LOCNESS_relevant_doc_ids.txt")
+if lang == "sl":
+    relevant_ids_file = os.path.join("..", "Solar_relevant_doc_ids.txt")
+elif lang == "en":
+    relevant_ids_file = os.path.join("..", "LOCNESS_relevant_doc_ids.txt")
 
 # build list of relevant doc ids
 relevant_ids = list()

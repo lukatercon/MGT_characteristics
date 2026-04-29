@@ -13,6 +13,14 @@ The three bracketed elements are included in the prompt depending on the availab
 ### Persona-Aware Prompt
 
 ```
+Napiši esej z naslovom {essay_title} in podnaslovom {essay_subtitle}, ki se nanaša na literarno delo {referenced_literary_work}, s približno {length_of_corresponding_HWT} besedami. Esej napiši, kot bi ga napisal dijak 4. letnika gimnazije. Odgovori samo z esejem brez spremnega besedila.
+```
+
+This prompt additionally incorporates information about the type of school and grade of the student. It therefore constructs a type of persona for the LLM to assume when generating the text.
+
+### Persona-Aware Prompt with Writer Region and Subject
+
+```
 Napiši esej z naslovom {essay_title} in podnaslovom {essay_subtitle}, ki se nanaša na literarno delo {referenced_literary_work}, s približno {length_of_corresponding_HWT} besedami. Esej napiši, kot bi ga napisal dijak 4. letnika gimnazije iz kraja: {region} pri predmetu: {subject}. Odgovori samo z esejem brez spremnega besedila.
 ```
 
@@ -64,6 +72,13 @@ In addition to including information about the writer of the essay, this prompt 
 ```
 Write an essay using approximately {length_of_corresponding_HWT} words addressing the following topic: {topic_of_corresponding_HWT}
 Provide only the essay without any additional accompanying text.
+```
+
+### Persona-Aware Prompt
+
+```
+Write an essay using approximately {length_of_corresponding_HWT} words addressing the following topic: {topic_of_corresponding_HWT}
+Write the essay as if it were written by a British A-level student. Provide only the essay without any additional accompanying text.
 ```
 
 ### Metalinguistically aware prompt

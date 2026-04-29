@@ -40,6 +40,8 @@ def combine_with_Šolar_persona_aware_template(title_info, length, region, subje
             subtitle_string = f" s podnaslovom {title_info[1]}"
 
     if mode == "default":
+        template = f"Napiši esej{title_string}{subtitle_string}{ref_lit_work_string} s približno {str(length)} besedami. Esej napiši, kot bi ga napisal dijak 4. letnika gimnazije. Odgovori samo z esejem brez spremnega besedila."
+    elif mode == "regsubj":
         template = f"Napiši esej{title_string}{subtitle_string}{ref_lit_work_string} s približno {str(length)} besedami. Esej napiši, kot bi ga napisal dijak 4. letnika gimnazije iz kraja: {region} pri predmetu: {subject}. Odgovori samo z esejem brez spremnega besedila."
     elif mode == "age":
         template = f"Napiši esej{title_string}{subtitle_string}{ref_lit_work_string} s približno {str(length)} besedami. Esej napiši, kot bi ga napisal {str(age)} let star pisec. Odgovori samo z esejem brez spremnega besedila."
@@ -87,6 +89,12 @@ def combine_with_Šolar_linguistically_aware_template(title_info, length, region
 
 def combine_with_locness_default_template(topic, length):
     template = f"Write an essay using approximately {length} words addressing the following topic: {topic}\nProvide only the essay without any additional accompanying text."
+
+    return template
+
+
+def combine_with_locness_persona_aware_template(topic, length):
+    template = f"Write an essay using approximately {length} words addressing the following topic: {topic}\nWrite the essay as if it were written by a British A-level student. Provide only the essay without any additional accompanying text."
 
     return template
 

@@ -5,14 +5,15 @@ import os
 
 from utils import combine_with_Šolar_default_template, combine_with_Šolar_persona_aware_template, \
                   combine_with_Šolar_linguistically_aware_template, build_lengths_dict, build_titles_dict, \
-                  build_metadata_dict, combine_with_locness_default_template, combine_with_locness_linguistically_aware_template
+                  build_metadata_dict, combine_with_locness_default_template, combine_with_locness_linguistically_aware_template, \
+                  combine_with_locness_persona_aware_template
 
 if __name__ == "__main__":
     # define the client and the model to be used
     client = OpenAI()
     model_to_use = "gpt-5-2025-08-07"     # this is the model used by default in the ChatGPT browser interface at time of generation "gpt-5-2025-08-07"
     prompt_type = "default"
-    # prompt type can be: ["default", "persona_aware", "longer_responses", "persona_age_awareXX", "linguistically_aware_general", "linguistically_aware_specific"]   # XX refers to the age of the speaker
+    # prompt type can be: ["default", "persona_aware", "persona_aware_regsubj", "longer_responses", "persona_age_awareXX", "linguistically_aware_general", "linguistically_aware_specific"]   # XX refers to the age of the speaker
     dataset = "LOCNESS"
     # dataset can be: ["Šolar", "LOCNESS"]
 
@@ -38,7 +39,10 @@ if __name__ == "__main__":
     meta_dict = build_metadata_dict(meta_file, mode=dataset)
 
     # build a list of relevant documents
-    relevant_docs_dir = os.path.join("..", "LOCNESS_relevant_doc_ids.txt")
+    if dataset == "Šolar":
+        relevant_docs_dir = os.path.join("..", "Datasets", "Solar", "Solar_relevant_doc_ids.txt")
+    elif dataset == "LOCNESS":
+        relevant_docs_dir = os.path.join("..", "Datasets", "LOCNESS", "LOCNESS_relevant_doc_ids.txt")
     relevant_docs = list()
     with open(relevant_docs_dir, "r", encoding="utf-8") as rf_rel:
         for line in rf_rel:
@@ -64,7 +68,13 @@ if __name__ == "__main__":
                 prompt = combine_with_locness_default_template(topic, length)
 
         elif prompt_type == "persona_aware":
-            prompt = combine_with_Šolar_persona_aware_template(title_info, len_dict[doc_id], spk_region, schl_subj)
+            if dataset == "Šolar":
+                prompt = combine_with_Šolar_persona_aware_template(title_info, len_dict[doc_id], spk_region, schl_subj)
+            elif dataset == "LOCNESS":
+                prompt = combine_with_locness_persona_aware_template(topic, length)
+        
+        elif prompt_type == "persona_aware_regsubj":
+            prompt = combine_with_Šolar_persona_aware_template(title_info, len_dict[doc_id], spk_region, schl_subj, mode="regsubj")
 
         elif prompt_type == "persona_age_aware":
             prompt = combine_with_Šolar_persona_aware_template(title_info, len_dict[doc_id], "_", "_", age=speaker_age, mode="age")

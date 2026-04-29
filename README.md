@@ -32,6 +32,13 @@ Models used:
 *- GaMS-27B-Instruct-Nemotron - LLM specifically aimed at generating Slovenian texts developed as part of the PoVeJMo project - 27 billion parameter version finetuned on the Nemotron machine-translated instruction tuning dataset: [https://huggingface.co/GaMS-Beta/GaMS-27B-Instruct-Nemotron](https://huggingface.co/GaMS-Beta/GaMS-27B-Instruct-Nemotron)*
 
 
+### LOCNESS
+
+Prompts used: see LLM_text_generation/text_generation_prompts.txt. This includes the default prompts, as well as the alternative persona-aware and metalinguistically-aware prompts.
+
+Process summary: 
+Since the LOCNESS corpus often lacks overtly expressed essay titles, the essays were first manually inspected and assigned a title. If the essay contained an explicitly expressed title somewhere within the body of the essay or before the body, this was used as the title. If not, a new essay title was inferred from the content. For one essay (dubbed 8-28 in our ID scheme), the title could not be successfully inferred, thus the essay was excluded from the final analysis. The resulting essay titles for each essay ID are contained in LOCNESS_relevant_doc_ids.txt. The essay IDs inside this file were newly constructed, since the original corpus lacks a unified essay ID scheme.
+
 ## Data Preprocessing
 
 Grammatical annotation tools used:
@@ -41,8 +48,7 @@ Grammatical annotation tools used:
 
 The data analysis phase was carried out using the ComparaTree tool for comparative linguistic analysis of treebanks: [https://github.com/clarinsi/ComparaTree/tree/main](https://github.com/clarinsi/ComparaTree/tree/main).
 
-As several measures included in ComparaTree are based on a special segment-based averaging method, the optimal value for the segment length had to be estableished first. We plotted the rank-frequency distributions for texts produced by GaMS-27B and humans for the following segment lengths: [100, 500, 1000, 5000, 10000, 20000]. It was found that, for the segmental type-token ratio and the tree diversity score, an approximate Zipfian distribution forms around n=1000. This was not found to be the case for the 3-gram diversity score, as we do not get an approximate Zipfian distribution even for n=20000. As a fallback method, we checked whether the tendencies for the 3-gram diversity scores were the same for all the aforementioned values of n (in which dataset the values were higher, etc.).   
-#### ==TODO: Describe also how you checked the rank frequency distributions for different values of n and checked whether the trends hold==
+As several measures included in ComparaTree are based on a special segment-based averaging method, the optimal value for the segment length had to be estableished first. We plotted the rank-frequency distributions for texts produced by GaMS-27B and humans for the following segment lengths: [100, 500, 1000, 5000, 10000, 20000]. It was found that, for the segmental type-token ratio and the tree diversity score, an approximate Zipfian distribution forms around n=1000. This was not found to be the case for the 3-gram diversity score, as we do not get an approximate Zipfian distribution even for n=20000. As a fallback method, we checked whether the tendencies for the 3-gram diversity scores were the same for all the aforementioned values of n (in which dataset the values were higher, etc.). 
 
 The experiments were carried out in the following order:
 - Šolar vs Šolar_GPT-5: The relevant essays from the Šolar 3.0 corpus were first compared to the corresponding essays from the machine-generated Šolar_GPT-5 corpus (see above for the criteria for selecting relevant essays). The results of this phase are stored in data_analysis/Solar_vs_Solar-GPT-5/. Command used to run ComparaTree:
