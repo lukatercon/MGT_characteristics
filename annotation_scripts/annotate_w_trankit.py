@@ -15,9 +15,9 @@ lang = lang.lower()
 assert lang in ["sl", "en"]
 
 if lang == "sl":
-    relevant_ids_file = os.path.join("..", "Solar_relevant_doc_ids.txt")
+    relevant_ids_file = os.path.join("..", "Datasets", "Solar", "Solar_relevant_doc_ids.txt")
 elif lang == "en":
-    relevant_ids_file = os.path.join("..", "LOCNESS_relevant_doc_ids.txt")
+    relevant_ids_file = os.path.join("..", "Datasets", "LOCNESS", "LOCNESS_relevant_doc_ids.txt")
 
 # build list of relevant doc ids
 relevant_ids = list()
@@ -27,9 +27,9 @@ with open(relevant_ids_file, "r", encoding="utf-8") as rf_ids:
 
 # load the Trankit models
 if lang == "sl":
-    p = Pipeline(lang="customized", cache_dir=model_path, embedding='xlm-roberta-large', gpu=True)
+    p = Pipeline(lang="customized", cache_dir=model_path, embedding='xlm-roberta-large', gpu=False)
 elif lang == "en":
-    p = Pipeline(lang="english", gpu=True)
+    p = Pipeline(lang="english", gpu=False)
 
 print("Done loading Trankit models!")
 
