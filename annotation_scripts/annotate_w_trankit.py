@@ -7,36 +7,44 @@ import sys
 
 model_path = os.path.join("..", "Models", "save_dir_ssj_sst")
 
-# parse positional arguments. Usage: python annotate_w_trankit.py raw_files_directory output_path language
-# language can be either "sl" for Slovenian or "en" for English
-raw_files_path, output_path, lang = sys.argv[1], sys.argv[2], sys.argv[3]
+# parse positional arguments. Usage: python annotate_w_trankit.py raw_files_directory output_path language read_mode
+# language can be any of the languages supported by trankit
+# read_mode can be either entire_dir (to annotate all the files in the directory) or 
+# relevant (currently only for sl and en - only get the docs that re on a list of relevant docs)
+raw_files_path, output_path, lang, read_mode = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]
+
+assert read_mode in ["relevant", "entire_dir"]
 
 lang = lang.lower()
-assert lang in ["sl", "en"]
+if read_mode == "relevant":
+    assert lang in ["slovenian", "english"]
 
-if lang == "sl":
-    relevant_ids_file = os.path.join("..", "Datasets", "Solar", "Solar_relevant_doc_ids.txt")
-elif lang == "en":
-    relevant_ids_file = os.path.join("..", "Datasets", "LOCNESS", "LOCNESS_relevant_doc_ids.txt")
+    if lang == "slovenian":
+        relevant_ids_file = os.path.join("..", "Datasets", "Solar", "Solar_relevant_doc_ids.txt")
+    elif lang == "english":
+        relevant_ids_file = os.path.join("..", "Datasets", "LOCNESS", "LOCNESS_relevant_doc_ids.txt")
 
 # build list of relevant doc ids
-relevant_ids = list()
-with open(relevant_ids_file, "r", encoding="utf-8") as rf_ids:
-    for line in rf_ids:
-        relevant_ids.append(line.strip())
+if read_mode == "relevant":
+    relevant_ids = list()
+    with open(relevant_ids_file, "r", encoding="utf-8") as rf_ids:
+        for line in rf_ids:
+            relevant_ids.append(line.strip())
+elif read_mode == "entire_dir":
+    relevant_ids = os.listdir(raw_files_path)
 
 # load the Trankit models
-if lang == "sl":
+if lang == "slovenian":
     p = Pipeline(lang="customized", cache_dir=model_path, embedding='xlm-roberta-large', gpu=False)
-elif lang == "en":
-    p = Pipeline(lang="english", gpu=False)
+else:
+    p = Pipeline(lang=lang, gpu=False)
 
 print("Done loading Trankit models!")
 
 # open output file
 with open(output_path, "w", encoding="utf-8") as wf:
     for doc_id in tqdm(iter(relevant_ids), total=len(relevant_ids), desc="Progress through docs"):
-        file = doc_id + ".txt"
+        file = doc_id + ".txt" if not doc_id.endswith(".txt") else doc_id
 
         with open(os.path.join(raw_files_path, file), "r", encoding="utf-8") as rf:
             file_text = rf.read()
