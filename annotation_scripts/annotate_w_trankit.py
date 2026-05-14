@@ -11,8 +11,8 @@ def process_long_text(pipeline, text, max_tokens=400):
     and process each chunk separately.
     Uses conservative max_tokens to leave room for special tokens.
     """
-    # First, use trankit just for sentence splitting
-    sentences = pipeline.ssplit(text)['sentences']
+    # First, use trankit just for tokenization
+    sentences = pipeline.tokenize(text)['sentences']
     
     chunks = []
     current_chunk_sents = []
@@ -23,7 +23,7 @@ def process_long_text(pipeline, text, max_tokens=400):
         
         # If a single sentence is already too long, split it by words
         if sent_len > max_tokens:
-            words = sent['text'].split()
+            words = sent['tokens']
             for i in range(0, len(words), max_tokens):
                 chunks.append(' '.join(words[i:i+max_tokens]))
             continue
