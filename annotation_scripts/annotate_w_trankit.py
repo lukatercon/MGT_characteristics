@@ -23,7 +23,7 @@ def process_long_text(pipeline, text, max_tokens=400):
         
         # If a single sentence is already too long, split it by words
         if sent_len > max_tokens:
-            words = sent['tokens']
+            words = [tok["text"] for tok in sent['tokens']]
             for i in range(0, len(words), max_tokens):
                 chunks.append(' '.join(words[i:i+max_tokens]))
             continue
