@@ -7,7 +7,7 @@ Several models were used with prompts that were designed using metadata from var
 
 ### Šolar
 
-Prompts used: see LLM_text_generation/text_generation_prompts.txt. This includes the default prompts, as well as the alternative persona-aware and metalinguistically-aware prompts. 
+Prompts used: see LLM_text_generation/text_generation_prompts.txt. This includes the default prompts, as well as the alternative persona-aware and metalinguistically-aware prompts, and others. 
 
 Process summary: 
 We employed a human annotator to find existing explicitly mentioned titles within the Šolar corpus and used those to build prompts for generating MGT using LLMs (see below for a list). The default prompt template is stored in LLM_text_generation/text_generation_prompts.md. We generated a corresponding MG essay and ran the analysis only on those texts from Šolar that:

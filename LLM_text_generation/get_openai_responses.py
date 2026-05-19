@@ -13,8 +13,8 @@ if __name__ == "__main__":
     client = OpenAI()
     model_to_use = "gpt-5-2025-08-07"     # this is the model used by default in the ChatGPT browser interface at time of generation "gpt-5-2025-08-07"
     prompt_type = "default"
-    # prompt type can be: ["default", "persona_aware", "persona_aware_regsubj", "longer_responses", "persona_age_awareXX", "linguistically_aware_general", "linguistically_aware_specific"]   # XX refers to the age of the speaker
-    dataset = "LOCNESS"
+    # prompt type can be: ["default", "persona_aware", "persona_aware_regsubj", "longer_responses", "persona_age_awareXX", "linguistically_aware_general", "linguistically_aware_specific", "grade_aware"]   # XX refers to the age of the speaker
+    dataset = "Šolar"
     # dataset can be: ["Šolar", "LOCNESS"]
 
     # Get the speaker age for persona-aware prompts
@@ -26,10 +26,13 @@ if __name__ == "__main__":
     lengths_file = os.path.join("..", "Datasets", "Solar", "Solar_lengths.tsv")
     titles_file = os.path.join("..", "Datasets", "Solar", "Solar_annotated_titles.tsv")
 
-    meta_file = os.path.join("..", "Datasets", "LOCNESS", "locness-meta.tsv")
+    meta_file = os.path.join("..", "Datasets", "Solar", "solar-meta.tsv")
 
     # define the output dir
-    output_dir = os.path.join("..", "Datasets", "LOCNESS", "LOCNESS-GPT-5", "raw")
+    if prompt_type == "grade_aware":
+        output_dir = os.path.join("..", "data_analysis", "Obdobja_paper", "Data_grade-aware", "GPT-5", "raw")
+    else:
+        output_dir = os.path.join("..", "data_analysis", "Obdobja_paper", "Data_full", "GPT-5", "raw")
 
     # build metadata dictionaries
     if dataset == "Šolar":
@@ -57,6 +60,7 @@ if __name__ == "__main__":
             title_info = titles_dict[doc_id]
             spk_region = meta_dict[doc_id][5]
             schl_subj = meta_dict[doc_id][2]
+            grade = meta_dict[doc_id][3]
         if dataset == "LOCNESS":
             topic, length = meta_dict[doc_id]
 
@@ -90,6 +94,9 @@ if __name__ == "__main__":
 
         elif prompt_type == "linguistically_aware_specific":
             prompt = combine_with_Šolar_linguistically_aware_template(title_info, len_dict[doc_id], spk_region, schl_subj, mode="specific")
+        
+        elif prompt_type == "grade_aware":
+            prompt = combine_with_Šolar_persona_aware_template(title_info, len_dict[doc_id], "_", "_", grade=grade, mode="grade")
 
         else:
             raise Exception(f"Invalid {prompt_type=}")
@@ -108,5 +115,9 @@ if __name__ == "__main__":
             ]
         )
 
-        with open(os.path.join(output_dir, f"{doc_id}.txt"), "w", encoding="utf-8") as wf:
-            wf.write(completion.choices[0].message.content)
+        if prompt_type == "grade_aware":
+            with open(os.path.join(output_dir, grade.replace(" ", "_"), f"{doc_id}.txt"), "w", encoding="utf-8") as wf:
+                wf.write(completion.choices[0].message.content)
+        else:
+            with open(os.path.join(output_dir, f"{doc_id}.txt"), "w", encoding="utf-8") as wf:
+                wf.write(completion.choices[0].message.content)
