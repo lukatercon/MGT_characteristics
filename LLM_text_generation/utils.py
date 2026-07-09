@@ -104,6 +104,13 @@ def combine_with_locness_linguistically_aware_template(topic, length):
 
     return template
 
+
+def combine_with_Trendi_default_template(article_title, article_topic, article_length):
+    template = f"Napiši novičarsko besedilo z naslovom {article_title}.\nBesedilo naj se nanaša na naslednjo širšo tematiko: {article_topic}.\nObsega naj približno {article_length} besed.\nOdgovori samo z besedilom brez naslova in spremnega teksta."
+
+    return template
+
+
 def build_lengths_dict(lengths_file):
     len_dict = dict()
     with open(lengths_file, "r", encoding="utf-8") as rf_len:
@@ -143,5 +150,10 @@ def build_metadata_dict(meta_file, mode):
                 final_topic = topic_from_text if topic_from_text != "_" else topic_proposed
 
                 meta_dict[locness_id] = (final_topic, int(essay_length)) 
+
+            elif mode == "Trendi":
+                trendi_id, _, trendi_length, trendi_topic, trendi_title = line.strip().split("\t")
+
+                meta_dict[trendi_id] = (trendi_length, trendi_topic, trendi_title)
 
     return meta_dict

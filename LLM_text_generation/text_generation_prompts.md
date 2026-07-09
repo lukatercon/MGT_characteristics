@@ -87,3 +87,14 @@ Write the essay as if it were written by a British A-level student. Provide only
 Write an essay using approximately {length_of_corresponding_HWT} words addressing the following topic: {topic_of_corresponding_HWT}
 Write the essay as if it were written by a British A-level student. Make sure that the language used matches the profile of the writer, paying special attention to the length of the essay, the length of sentences, lexical diversity, n-gram diversity, diversity of syntactic trees, syntactic complexity (average length of dependency relations), and the distribution of parts-of-speech and syntactic relation types. Provide only the essay without any additional accompanying text.
 ```
+
+## Trendi_2026-05 MGT (Slovenian)
+
+### Default Prompt
+
+```
+Napiši novičarsko besedilo z naslovom {article_title}.
+Besedilo naj se nanaša na naslednjo širšo tematiko: {article_topic}.
+Obsega naj približno {length_of_corresponding_HWT} besed. 
+Odgovori samo z besedilom brez naslova in spremnega teksta.
+```
