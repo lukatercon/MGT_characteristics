@@ -16,7 +16,7 @@ if __name__ == "__main__":
     if dataset == "Šolar":
         lengths_file = os.path.join("..", "Datasets", "Solar", "Solar_lengths.tsv")
         titles_file = os.path.join("..", "Datasets", "Solar", "Solar_annotated_titles.tsv")
-    meta_file = os.path.join("..", "Datasets", "Solar", "Trendi_2026-05_relevant_metadata.tsv")
+    meta_file = os.path.join("..", "Datasets", "Trendi", "Trendi_2026-05_relevant_metadata.tsv")
 
     # build text lengths dictionary, titles dictionary, and metadata dictionary
     if dataset == "Šolar":
@@ -55,8 +55,7 @@ if __name__ == "__main__":
         top_p=0.9,
         max_tokens=2048
     )
-    
-    #TODO: continue here
+
     for doc_id in tqdm(iter(relevant_docs), total=len(relevant_docs), desc="Progress through docs"):
         if dataset == "Šolar":
             title_info = titles_dict[doc_id]
@@ -84,6 +83,7 @@ if __name__ == "__main__":
             article_length, article_topic, article_title = meta_dict[doc_id]
 
             prompt = combine_with_Trendi_default_template(article_title, article_topic, article_length)
+
 
         message = [[{"role": "user", "content": prompt}]]
         response = model.chat(message, sampling_params)
