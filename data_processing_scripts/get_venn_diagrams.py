@@ -91,6 +91,9 @@ def draw_venn_two_way(first_set, second_set, output_file, mode):
 
     fig, ax = plt.subplots(figsize=(12, 8))
 
+    #green: #3CC014
+    #blue: #14A0C0
+
     v = venn2(
         subsets=(first_set, second_set),
         set_labels=("", ""),  # custom labels added manually
@@ -137,15 +140,15 @@ def draw_venn_two_way(first_set, second_set, output_file, mode):
     plt.close(fig)
 
 
-first_file_lemmas = os.path.join("..", "Datasets", "Solar", "Solar_human", "annotated", "Solar_human_annotated_shorter_noeng.conllu")
-first_file_trees = os.path.join("Solar_human_annotated_shorter_noeng_trees.tsv")
-second_file_lemmas = os.path.join("..", "Datasets", "Solar", "Solar_GaMS-27B", "annotated", "Solar_GaMS-27B_annotated_shorter_noeng.conllu")
-second_file_trees = os.path.join("Solar_GaMS-27B_annotated_shorter_noeng_trees.tsv")
-third_file_lemmas = os.path.join("..", "Datasets", "Solar", "Solar_gemma-2-27B", "annotated", "Solar_gemma-2-27B_annotated_shorter_noeng.conllu")
-third_file_trees = os.path.join("Solar_gemma-2-27B_annotated_shorter_noeng_trees.tsv")
+first_file_lemmas = os.path.join("..", "Datasets", "Trendi", "Trendi_human", "annotated", "Trendi_human_annotated.conllu")
+first_file_trees = os.path.join("script_output_input", "Trendi_human_vs_GaMS-27b.tsv")
+second_file_lemmas = os.path.join("..", "Datasets", "Trendi", "Trendi_GaMS-27B", "annotated", "Trendi_GaMS-27B_annotated.conllu")
+second_file_trees = os.path.join("script_output_input", "Trendi_GaMS-27B_vs_human.tsv")
+third_file_lemmas = os.path.join("..", "Datasets", "Trendi", "Trendi_gemma-2-27B", "annotated", "Trendi_gemma-2-27B_annotated.conllu")
+third_file_trees = os.path.join("script_output_input", "Trendi_gemma-2-27B_vs_human.tsv")
 
-output_file_lemmas = os.path.join("Venn_Solar_human-gemma_lemmas.png")
-output_file_trees = os.path.join("Venn_Solar_human-gemma_trees.png")
+output_file_lemmas = os.path.join("script_output_input", "Venn_Trendi_human-gemma_lemmas.png")
+output_file_trees = os.path.join("script_output_input", "Venn_Trendi_human-gemma_trees.png")
 
 # open lemma files
 with open(first_file_lemmas, "r", encoding="utf-8") as rf_fl:
